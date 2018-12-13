@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Metani.Models.HasilTani>
+
+@{
+    ViewBag.Title = "Hasil Tani";
+}
+<h2>@ViewBag.Title.</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID Hasil Tani
+        </th>
+        <th>
+            ID Jenis Tani
+        </th>
+        <th>
+            Jumlah
+        </th>
+        <th>
+            Id Lokasi
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @item.IdHasilTani
+        </td>
+        <td>
+            @item.IdJenisTani
+        </td>
+        <td>
+            @item.Jumlah
+        </td>
+        <td>
+            @item.IdLokasi
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdHasilTani }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdHasilTani }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdHasilTani })
+        </td>
+    </tr>
+    }
+
+</table>
