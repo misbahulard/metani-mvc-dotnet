@@ -65,8 +65,6 @@ namespace Metani.Models
 
         public void EditJenisTani(int idJenisTani, string namaJenisTani)
         {
-            System.Diagnostics.Debug.WriteLine("UPDATE jenis_tani SET nama_jenistani = '" + namaJenisTani + "' WHERE id_jenistani = '" + idJenisTani + "')");
-            System.Diagnostics.Debug.WriteLine(namaJenisTani);
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
@@ -96,6 +94,85 @@ namespace Metani.Models
             }
 
             return jenisTani;
+        }
+
+        public List<JenisTanah> GetAllJenisTanah()
+        {
+            List<JenisTanah> list = new List<JenisTanah>();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM jenis_tanah", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new JenisTanah
+                        {
+                            IdJenisTanah = reader.GetInt32("id_jenistanah"),
+                            NamaJenisTanah = reader.GetString("nama_jenistanah")
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public void PostJenisTanah(string namaJenisTanah)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO jenis_tanah(nama_jenistanah) values('" + namaJenisTanah + "')", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteJenisTanah(int id)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM jenis_tanah WHERE id_jenistanah = '" + id + "'", conn);
+                cmd.ExecuteNonQuery();
+
+            }
+
+        }
+
+        public void EditJenisTanah(int idJenisTanah, string namaJenisTanah)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("UPDATE jenis_tanah SET nama_jenistanah = '" + namaJenisTanah + "' WHERE id_jenistanah = '" + idJenisTanah + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public JenisTanah FindJenisTanah(int idJenisTanah)
+        {
+            JenisTanah jenisTanah = new JenisTanah();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM jenis_tanah WHERE id_jenistanah = ('" + idJenisTanah + "')", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        jenisTanah.IdJenisTanah = reader.GetInt32("id_jenistanah");
+                        jenisTanah.NamaJenisTanah = reader.GetString("nama_jenistanah");
+
+                    }
+                }
+
+            }
+
+            return jenisTanah;
         }
 
         public List<HasilTani> GetAllHasilTani()
@@ -145,7 +222,7 @@ namespace Metani.Models
                             Provinsi = reader.GetString("provinsi"),
                             KodePos = reader.GetInt32("kode_pos"),
                             Latitude = reader.GetDecimal("latitude"),
-                            Longitude = reader.GetDecimal("longitude"),
+                            Longitude = reader.GetDecimal("longtitude"),
                             
                         });
                     }
@@ -153,6 +230,67 @@ namespace Metani.Models
             }
 
             return list;
+        }
+
+        public Lokasi FindLokasiTani(int idLokasi)
+        {
+            Lokasi lokasi = new Lokasi();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM lokasi WHERE id_lokasi = ('" + idLokasi + "')", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lokasi.IdLokasi= reader.GetInt32("id_lokasi");
+                        lokasi.Kecamatan = reader.GetString("kecamatan");
+                        lokasi.Kabupaten = reader.GetString("kabupaten");
+                        lokasi.Provinsi = reader.GetString("provinsi");
+                        lokasi.KodePos = reader.GetInt32("kode_pos");
+                        lokasi.Latitude = reader.GetDecimal("latitude");
+                        lokasi.Longitude = reader.GetDecimal("longtitude");
+
+                    }
+                }
+
+            }
+
+            return lokasi;
+        }
+
+        public void PostLokasi(string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO lokasi(kecamatan, kabupaten, provinsi, kode_pos, latitude, longtitude) values('" + kecamatan + "' , '" + kabupaten + "' , '" + provinsi + "' , '" + kodepos + "' , '" + latitude + "' , '" + longitude + "')", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteLokasi(int id)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM lokasi WHERE id_lokasi = '" + id + "'", conn);
+                cmd.ExecuteNonQuery();
+
+            }
+
+        }
+
+        public void EditLokasi(int idLokasi, string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        {
+            System.Diagnostics.Debug.WriteLine("UPDATE lokasi SET kecamatan = '" + kecamatan + "' , kabupaten = '" + kabupaten + "' , provinsi = '" + provinsi + "' , kode_pos = '" + kodepos + "' , latitude = '" + latitude + "' , longtitude = '" + longitude + "' WHERE id_lokasi = '" + idLokasi + "'");
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("UPDATE lokasi SET kecamatan = '" + kecamatan + "' , kabupaten = '" + kabupaten + "' , provinsi = '" + provinsi + "' , kode_pos = '" + kodepos + "' , latitude = '" + latitude + "' , longtitude = '" + longitude + "' WHERE id_lokasi = '" + idLokasi + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public List<Tanah> GetAllTanahTani()

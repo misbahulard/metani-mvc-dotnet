@@ -1,0 +1,31 @@
+﻿@model Metani.Models.JenisTanah
+
+@{
+    ViewBag.Title = "Jenis Tanah";
+}
+<h2>@ViewBag.Title.</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            ID Jenis Tani
+        </th>
+        <th>
+            Nama
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Model.IdJenisTanah
+        </td>
+        <td>
+            @Model.NamaJenisTanah
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdJenisTanah }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.IdJenisTanah })
+        </td>
+    </tr>
+
+</table>

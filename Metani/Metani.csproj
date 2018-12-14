@@ -55,14 +55,13 @@
       <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data.EntityFramework, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySQL.Data.EntityFrameworkCore, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySQL.Data.EntityFrameworkCore.Design, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Web, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
@@ -148,10 +147,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Controllers\HasilTaniController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JenisTanahController.cs" />
     <Compile Include="Controllers\JenisTaniController.cs" />
     <Compile Include="Controllers\LokasiController.cs" />
     <Compile Include="Controllers\TanahController.cs" />
@@ -159,6 +162,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HasilTani.cs" />
+    <Compile Include="Models\JenisTanah.cs" />
     <Compile Include="Models\JenisTani.cs" />
     <Compile Include="Models\Lokasi.cs" />
     <Compile Include="Models\MetaniContext.cs" />
@@ -204,11 +208,20 @@
     <Content Include="Views\JenisTani\Index.cshtml" />
     <Content Include="Views\HasilTani\index.cshtml" />
     <Content Include="Views\Tanah\index.cshtml" />
-    <Content Include="Views\Lokasi\index.cshtml" />
     <Content Include="Views\JenisTani\Create.cshtml" />
     <Content Include="Views\JenisTani\Details.cshtml" />
     <Content Include="Views\JenisTani\Delete.cshtml" />
     <Content Include="Views\JenisTani\Edit.cshtml" />
+    <Content Include="Views\JenisTanah\Index.cshtml" />
+    <Content Include="Views\JenisTanah\Create.cshtml" />
+    <Content Include="Views\JenisTanah\Details.cshtml" />
+    <Content Include="Views\JenisTanah\Delete.cshtml" />
+    <Content Include="Views\JenisTanah\Edit.cshtml" />
+    <Content Include="Views\Lokasi\Create.cshtml" />
+    <Content Include="Views\Lokasi\Details.cshtml" />
+    <Content Include="Views\Lokasi\index.cshtml" />
+    <Content Include="Views\Lokasi\Edit.cshtml" />
+    <Content Include="Views\Lokasi\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
