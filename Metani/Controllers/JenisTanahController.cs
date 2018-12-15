@@ -7,23 +7,22 @@ using Metani.Models;
 
 namespace Metani.Controllers
 {
-    public class LokasiController : Controller
+    public class JenisTanahController : Controller
     {
-        // GET: Lokasi
+        // GET: JenisTanah
         public ActionResult Index()
         {
             MetaniContext context = new MetaniContext();
-            return View(context.GetAllLokasiTani());
+            return View(context.GetAllJenisTanah());
         }
 
-        // GET: Lokasi/Details/5
+        // GET: JenisTanah/Details/5
         public ActionResult Details(int id)
         {
             try
             {
                 MetaniContext context = new MetaniContext();
-
-                return View(context.FindLokasiTani(id));
+                return View(context.FindJenisTanah(id));
 
             }
             catch
@@ -32,20 +31,20 @@ namespace Metani.Controllers
             }
         }
 
-        // GET: Lokasi/Create
+        // GET: JenisTanah/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Lokasi/Create
+        // POST: JenisTanah/Create
         [HttpPost]
-        public ActionResult Create(string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public ActionResult Create(string namaJenisTanah)
         {
             try
             {
                 MetaniContext context = new MetaniContext();
-                context.PostLokasi(kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
+                context.PostJenisTanah(namaJenisTanah);
 
                 return RedirectToAction("Index");
             }
@@ -55,21 +54,21 @@ namespace Metani.Controllers
             }
         }
 
-        // GET: Lokasi/Edit/5
+        // GET: JenisTanah/Edit/5
         public ActionResult Edit(int id)
         {
             MetaniContext context = new MetaniContext();
-            return View(context.FindLokasiTani(id));
+            return View(context.FindJenisTanah(id));
         }
 
-        // POST: Lokasi/Edit/5
+        // POST: JenisTanah/Edit/5
         [HttpPost]
-        public ActionResult Edit(int idLokasi, string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public ActionResult Edit(int idJenisTanah, string namaJenisTanah)
         {
             try
             {
                 MetaniContext context = new MetaniContext();
-                context.EditLokasi(idLokasi, kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
+                context.EditJenisTanah(idJenisTanah, namaJenisTanah);
 
                 return RedirectToAction("Index");
             }
@@ -79,21 +78,21 @@ namespace Metani.Controllers
             }
         }
 
-        // GET: Lokasi/Delete/5
+        // GET: JenisTanah/Delete/5
         public ActionResult Delete(int id)
         {
             MetaniContext context = new MetaniContext();
-            return View(context.FindLokasiTani(id));
+            return View(context.FindJenisTanah(id));
         }
-        
-        // POST: Lokasi/Delete/5
+
+        // POST: JenisTanah/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
                 MetaniContext context = new MetaniContext();
-                context.DeleteLokasi(id);
+                context.DeleteJenisTanah(id);
                 return RedirectToAction("Index");
             }
             catch
