@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace Metani.Models
@@ -15,6 +17,30 @@ namespace Metani.Models
         {
             string connectionString = ConfigurationManager.ConnectionStrings["metaniEntities"].ConnectionString;
             return new MySqlConnection(connectionString);
+        }
+
+        public User Login(User user)
+        {
+            User userDb = new User();
+            string username = user.Username;
+            string password = CalculateMD5Hash(user.Password);
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM user WHERE username='" + username + "' AND password='" + password + "'", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        userDb.UserId = reader.GetInt32("id_user");
+                        userDb.Username = reader.GetString("username");
+                        userDb.Password = reader.GetString("password");
+                    }
+                }
+            }
+
+            return userDb;
         }
 
         public List<JenisTani> GetAllJenisTani()
@@ -320,6 +346,19 @@ namespace Metani.Models
             return list;
         }
 
-
+        public string CalculateMD5Hash(string input)
+        {
+            // step 1, calculate MD5 hash from input
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
     }
 }

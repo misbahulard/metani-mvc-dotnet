@@ -12,96 +12,140 @@ namespace Metani.Controllers
         // GET: JenisTani
         public ActionResult Index()
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.GetAllJenisTani());
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.GetAllJenisTani());
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Details/5
         public ActionResult Details(int id)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                //Console.WriteLine(namaJenisTani)
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    //Console.WriteLine(namaJenisTani)
 
-                return View(context.FindJenisTani(id));
-                
+                    return View(context.FindJenisTani(id));
+
+                }
+                catch
+                {
+                    return RedirectToAction("Index");
+                };
             }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Create
         public ActionResult Create()
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
+
         }
 
         // POST: JenisTani/Create
         [HttpPost]
         public ActionResult Create(string namaJenisTani)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                //Console.WriteLine(namaJenisTani);
-                context.PostJenisTani(namaJenisTani);
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    //Console.WriteLine(namaJenisTani);
+                    context.PostJenisTani(namaJenisTani);
                
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Edit/5
         public ActionResult Edit(int id)
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.FindJenisTani(id));
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.FindJenisTani(id));
+            }
+
+            return RedirectToAction("Login", "Admin");
+
         }
 
         // POST: JenisTani/Edit/5
         [HttpPost]
         public ActionResult Edit(int idJenisTani, string namaJenisTani)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                context.EditJenisTani(idJenisTani, namaJenisTani);
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    context.EditJenisTani(idJenisTani, namaJenisTani);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return RedirectToAction("Create");
+                }
             }
-            catch
-            {
-                return RedirectToAction("Create");
-            }
+
+            return RedirectToAction("Login", "Admin");
+
         }
 
         // GET: JenisTani/Delete/5
         public ActionResult Delete(int id)
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.FindJenisTani(id));
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.FindJenisTani(id));
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // POST: JenisTani/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                context.DeleteJenisTani(id);
-                return RedirectToAction("Index");
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    context.DeleteJenisTani(id);
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
+
         }
     }
 }

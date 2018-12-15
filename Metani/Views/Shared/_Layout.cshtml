@@ -22,7 +22,14 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if ((bool)Session["login"] == true)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Admin")</li>
+                    }
                 </ul>
             </div>
         </div>

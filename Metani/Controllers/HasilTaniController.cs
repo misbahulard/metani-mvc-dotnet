@@ -12,80 +12,121 @@ namespace Metani.Controllers
         // GET: HasilTani
         public ActionResult Index()
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.GetAllHasilTani());
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.GetAllHasilTani());
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Create
         public ActionResult Create()
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // POST: JenisTani/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                // TODO: Add insert logic here
+                try
+                {
+                    // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
+
         }
 
         // POST: JenisTani/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                // TODO: Add update logic here
+                try
+                {
+                    // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: JenisTani/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // POST: JenisTani/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                // TODO: Add delete logic here
+                try
+                {
+                    // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
     }
 }

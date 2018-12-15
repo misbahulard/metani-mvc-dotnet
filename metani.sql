@@ -1,166 +1,221 @@
--- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: metani
--- ------------------------------------------------------
--- Server version	8.0.13
+-- Host: 127.0.0.1
+-- Generation Time: 15 Des 2018 pada 11.40
+-- Versi Server: 10.1.26-MariaDB
+-- PHP Version: 7.1.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `hasil_tani`
+-- Database: `metani`
 --
 
-DROP TABLE IF EXISTS `hasil_tani`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `hasil_tani`
+--
+
 CREATE TABLE `hasil_tani` (
-  `id_hasil` int(11) NOT NULL AUTO_INCREMENT,
+  `id_hasil` int(11) NOT NULL,
   `id_jenistani` int(11) DEFAULT NULL,
   `jumlah` int(11) DEFAULT NULL,
-  `id_lokasi` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_hasil`),
-  KEY `id_jenistani` (`id_jenistani`),
-  KEY `id_hasil` (`id_hasil`,`id_jenistani`,`jumlah`,`id_lokasi`),
-  KEY `id_lokasi` (`id_lokasi`),
-  CONSTRAINT `hasil_tani_ibfk_1` FOREIGN KEY (`id_jenistani`) REFERENCES `jenis_tani` (`id_jenistani`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `hasil_tani_ibfk_2` FOREIGN KEY (`id_lokasi`) REFERENCES `lokasi` (`id_lokasi`) ON DELETE CASCADE ON UPDATE CASCADE
+  `id_lokasi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `hasil_tani`
+-- Struktur dari tabel `jenis_tanah`
 --
 
-LOCK TABLES `hasil_tani` WRITE;
-/*!40000 ALTER TABLE `hasil_tani` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hasil_tani` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jenis_tanah`
---
-
-DROP TABLE IF EXISTS `jenis_tanah`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `jenis_tanah` (
-  `id_jenistanah` int(11) NOT NULL AUTO_INCREMENT,
-  `nama_jenistanah` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_jenistanah`),
-  KEY `id_jenistanah` (`id_jenistanah`,`nama_jenistanah`)
+  `id_jenistanah` int(11) NOT NULL,
+  `nama_jenistanah` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `jenis_tanah`
+-- Struktur dari tabel `jenis_tani`
 --
 
-LOCK TABLES `jenis_tanah` WRITE;
-/*!40000 ALTER TABLE `jenis_tanah` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jenis_tanah` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jenis_tani`
---
-
-DROP TABLE IF EXISTS `jenis_tani`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `jenis_tani` (
-  `id_jenistani` int(11) NOT NULL AUTO_INCREMENT,
-  `nama_jenistani` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_jenistani`),
-  KEY `id_jenistani` (`id_jenistani`,`nama_jenistani`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_jenistani` int(11) NOT NULL,
+  `nama_jenistani` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jenis_tani`
+-- Dumping data untuk tabel `jenis_tani`
 --
 
-LOCK TABLES `jenis_tani` WRITE;
-/*!40000 ALTER TABLE `jenis_tani` DISABLE KEYS */;
-INSERT INTO `jenis_tani` VALUES (2,'kelapa'),(3,'jagung');
-/*!40000 ALTER TABLE `jenis_tani` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `jenis_tani` (`id_jenistani`, `nama_jenistani`) VALUES
+(2, 'kelapa'),
+(3, 'jagung');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `lokasi`
+-- Struktur dari tabel `lokasi`
 --
 
-DROP TABLE IF EXISTS `lokasi`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `lokasi` (
-  `id_lokasi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_lokasi` int(11) NOT NULL,
   `kecamatan` varchar(100) NOT NULL,
   `kabupaten` varchar(100) NOT NULL,
   `provinsi` varchar(100) NOT NULL,
   `kode_pos` int(11) NOT NULL,
   `latitude` decimal(10,6) NOT NULL,
-  `longtitude` decimal(10,6) NOT NULL,
-  PRIMARY KEY (`id_lokasi`),
-  KEY `id_lokasi` (`id_lokasi`,`kecamatan`,`kabupaten`,`provinsi`,`kode_pos`,`latitude`,`longtitude`)
+  `longtitude` decimal(10,6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `lokasi`
+-- Struktur dari tabel `tanah`
 --
 
-LOCK TABLES `lokasi` WRITE;
-/*!40000 ALTER TABLE `lokasi` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lokasi` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tanah`
---
-
-DROP TABLE IF EXISTS `tanah`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `tanah` (
-  `id_tanah` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tanah` int(11) NOT NULL,
   `id_lokasi` int(11) NOT NULL,
   `id_jenistanah` int(11) NOT NULL,
   `luas_tanah` int(11) NOT NULL,
-  `suhu` int(11) NOT NULL,
-  PRIMARY KEY (`id_tanah`),
-  KEY `id_tanah` (`id_tanah`,`id_lokasi`,`id_jenistanah`,`luas_tanah`,`suhu`),
-  KEY `id_lokasi` (`id_lokasi`),
-  KEY `id_jenistanah` (`id_jenistanah`),
-  CONSTRAINT `tanah_ibfk_2` FOREIGN KEY (`id_lokasi`) REFERENCES `lokasi` (`id_lokasi`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `tanah_ibfk_3` FOREIGN KEY (`id_jenistanah`) REFERENCES `jenis_tanah` (`id_jenistanah`) ON DELETE CASCADE ON UPDATE CASCADE
+  `suhu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tanah`
+-- Struktur dari tabel `user`
 --
 
-LOCK TABLES `tanah` WRITE;
-/*!40000 ALTER TABLE `tanah` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tanah` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE TABLE `user` (
+  `id_user` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `password`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `hasil_tani`
+--
+ALTER TABLE `hasil_tani`
+  ADD PRIMARY KEY (`id_hasil`),
+  ADD KEY `id_jenistani` (`id_jenistani`),
+  ADD KEY `id_hasil` (`id_hasil`,`id_jenistani`,`jumlah`,`id_lokasi`),
+  ADD KEY `id_lokasi` (`id_lokasi`);
+
+--
+-- Indexes for table `jenis_tanah`
+--
+ALTER TABLE `jenis_tanah`
+  ADD PRIMARY KEY (`id_jenistanah`),
+  ADD KEY `id_jenistanah` (`id_jenistanah`,`nama_jenistanah`);
+
+--
+-- Indexes for table `jenis_tani`
+--
+ALTER TABLE `jenis_tani`
+  ADD PRIMARY KEY (`id_jenistani`),
+  ADD KEY `id_jenistani` (`id_jenistani`,`nama_jenistani`);
+
+--
+-- Indexes for table `lokasi`
+--
+ALTER TABLE `lokasi`
+  ADD PRIMARY KEY (`id_lokasi`),
+  ADD KEY `id_lokasi` (`id_lokasi`,`kecamatan`,`kabupaten`,`provinsi`,`kode_pos`,`latitude`,`longtitude`);
+
+--
+-- Indexes for table `tanah`
+--
+ALTER TABLE `tanah`
+  ADD PRIMARY KEY (`id_tanah`),
+  ADD KEY `id_tanah` (`id_tanah`,`id_lokasi`,`id_jenistanah`,`luas_tanah`,`suhu`),
+  ADD KEY `id_lokasi` (`id_lokasi`),
+  ADD KEY `id_jenistanah` (`id_jenistanah`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `hasil_tani`
+--
+ALTER TABLE `hasil_tani`
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jenis_tanah`
+--
+ALTER TABLE `jenis_tanah`
+  MODIFY `id_jenistanah` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jenis_tani`
+--
+ALTER TABLE `jenis_tani`
+  MODIFY `id_jenistani` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `lokasi`
+--
+ALTER TABLE `lokasi`
+  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tanah`
+--
+ALTER TABLE `tanah`
+  MODIFY `id_tanah` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `hasil_tani`
+--
+ALTER TABLE `hasil_tani`
+  ADD CONSTRAINT `hasil_tani_ibfk_1` FOREIGN KEY (`id_jenistani`) REFERENCES `jenis_tani` (`id_jenistani`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_tani_ibfk_2` FOREIGN KEY (`id_lokasi`) REFERENCES `lokasi` (`id_lokasi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tanah`
+--
+ALTER TABLE `tanah`
+  ADD CONSTRAINT `tanah_ibfk_2` FOREIGN KEY (`id_lokasi`) REFERENCES `lokasi` (`id_lokasi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tanah_ibfk_3` FOREIGN KEY (`id_jenistanah`) REFERENCES `jenis_tanah` (`id_jenistanah`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-12-13 20:55:01

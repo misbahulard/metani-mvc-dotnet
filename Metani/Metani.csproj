@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HasilTaniController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JenisTanahController.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\Lokasi.cs" />
     <Compile Include="Models\MetaniContext.cs" />
     <Compile Include="Models\Tanah.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +224,8 @@
     <Content Include="Views\Lokasi\index.cshtml" />
     <Content Include="Views\Lokasi\Edit.cshtml" />
     <Content Include="Views\Lokasi\Delete.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,94 +12,132 @@ namespace Metani.Controllers
         // GET: Lokasi
         public ActionResult Index()
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.GetAllLokasiTani());
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.GetAllLokasiTani());
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: Lokasi/Details/5
         public ActionResult Details(int id)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-
-                return View(context.FindLokasiTani(id));
-
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    return View(context.FindLokasiTani(id));
+                }
+                catch
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: Lokasi/Create
         public ActionResult Create()
         {
-            return View();
+            if ((bool)Session["Login"])
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // POST: Lokasi/Create
         [HttpPost]
         public ActionResult Create(string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                context.PostLokasi(kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    context.PostLokasi(kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: Lokasi/Edit/5
         public ActionResult Edit(int id)
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.FindLokasiTani(id));
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.FindLokasiTani(id));
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // POST: Lokasi/Edit/5
         [HttpPost]
         public ActionResult Edit(int idLokasi, string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                context.EditLokasi(idLokasi, kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    context.EditLokasi(idLokasi, kecamatan, kabupaten, provinsi, kodepos, latitude, longitude);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return RedirectToAction("Create");
+                }
             }
-            catch
-            {
-                return RedirectToAction("Create");
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: Lokasi/Delete/5
         public ActionResult Delete(int id)
         {
-            MetaniContext context = new MetaniContext();
-            return View(context.FindLokasiTani(id));
+            if ((bool)Session["Login"])
+            {
+                MetaniContext context = new MetaniContext();
+                return View(context.FindLokasiTani(id));
+            }
+
+            return RedirectToAction("Login", "Admin");
         }
         
         // POST: Lokasi/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            if ((bool)Session["Login"])
             {
-                MetaniContext context = new MetaniContext();
-                context.DeleteLokasi(id);
-                return RedirectToAction("Index");
+                try
+                {
+                    MetaniContext context = new MetaniContext();
+                    context.DeleteLokasi(id);
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Login", "Admin");
         }
     }
 }
