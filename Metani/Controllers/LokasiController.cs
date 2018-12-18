@@ -53,7 +53,7 @@ namespace Metani.Controllers
 
         // POST: Lokasi/Create
         [HttpPost]
-        public ActionResult Create(string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public ActionResult Create(string kecamatan, string kabupaten, string provinsi, int kodepos, decimal latitude, decimal longitude)
         {
             if ((bool)Session["Login"])
             {
@@ -87,7 +87,7 @@ namespace Metani.Controllers
 
         // POST: Lokasi/Edit/5
         [HttpPost]
-        public ActionResult Edit(int idLokasi, string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public ActionResult Edit(int idLokasi, string kecamatan, string kabupaten, string provinsi, int kodepos, decimal latitude, decimal longitude)
         {
             if ((bool)Session["Login"])
             {

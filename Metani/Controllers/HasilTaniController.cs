@@ -37,7 +37,14 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();
+                MetaniContext context = new MetaniContext();
+                List<JenisTani> jenisTani = context.GetAllJenisTani();
+                List<Lokasi> lokasi = context.GetAllLokasiTani();
+
+                HasilTani hasilTani = new HasilTani();
+
+                TaniLokasi taniLokasi = new TaniLokasi { jenisTani = jenisTani.ToArray(), lokasi = lokasi.ToArray(), hasilTani = hasilTani };
+                return View(taniLokasi);
             }
 
             return RedirectToAction("Login", "Admin");
@@ -45,13 +52,14 @@ namespace Metani.Controllers
 
         // POST: JenisTani/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(int idJenisTani, int jumlah, int idLokasi)
         {
             if ((bool)Session["Login"])
             {
                 try
                 {
-                    // TODO: Add insert logic here
+                    MetaniContext context = new MetaniContext();
+                    context.PostHasilTani(idJenisTani, jumlah, idLokasi);
 
                     return RedirectToAction("Index");
                 }
@@ -69,7 +77,8 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();
+                MetaniContext context = new MetaniContext();
+                return View(context.FindHasilTani(id));
             }
 
             return RedirectToAction("Login", "Admin");

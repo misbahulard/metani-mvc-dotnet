@@ -228,6 +228,41 @@ namespace Metani.Models
             return list;
         }
 
+        public void PostHasilTani(int idJenisTani, int jumlah, int idLokasi)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO hasil_tani(id_jenistani, jumlah, id_lokasi) values('" + idJenisTani + "', '" + jumlah + "' , '" + idLokasi + "')", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public HasilTani FindHasilTani(int idHasilTani)
+        {
+            HasilTani hasilTani = new HasilTani();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM hasil_tani WHERE id_hasil = ('" + idHasilTani + "')", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        hasilTani.IdHasilTani = reader.GetInt32("id_hasil");
+                        hasilTani.IdJenisTani = reader.GetInt32("id_jenistani");
+                        hasilTani.Jumlah = reader.GetInt32("jumlah");
+                        hasilTani.IdLokasi = reader.GetInt32("id_lokasi");
+
+                    }
+                }
+
+            }
+            return hasilTani;
+        }
+
+
         public List<Lokasi> GetAllLokasiTani()
         {
             List <Lokasi> list = new List<Lokasi>();
@@ -286,7 +321,7 @@ namespace Metani.Models
             return lokasi;
         }
 
-        public void PostLokasi(string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public void PostLokasi(string kecamatan, string kabupaten, string provinsi, int kodepos, decimal latitude, decimal longitude)
         {
             using (MySqlConnection conn = GetConnection())
             {
@@ -308,7 +343,7 @@ namespace Metani.Models
 
         }
 
-        public void EditLokasi(int idLokasi, string kecamatan, string kabupaten, string provinsi, string kodepos, decimal latitude, decimal longitude)
+        public void EditLokasi(int idLokasi, string kecamatan, string kabupaten, string provinsi, int kodepos, decimal latitude, decimal longitude)
         {
             System.Diagnostics.Debug.WriteLine("UPDATE lokasi SET kecamatan = '" + kecamatan + "' , kabupaten = '" + kabupaten + "' , provinsi = '" + provinsi + "' , kode_pos = '" + kodepos + "' , latitude = '" + latitude + "' , longtitude = '" + longitude + "' WHERE id_lokasi = '" + idLokasi + "'");
             using (MySqlConnection conn = GetConnection())
