@@ -262,6 +262,103 @@ namespace Metani.Models
             return hasilTani;
         }
 
+        public void EditHasilTani(int idHasilTani, int idJenisTani, int jumlah, int idLokasi)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("UPDATE hasil_tani SET id_jenistani = '" + idJenisTani + 
+                    "', jumlah = '" + jumlah + 
+                    "', id_lokasi = '" + idLokasi + 
+                    "' WHERE id_hasil = '" + idHasilTani + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public List<HasilTaniJoin> GetAllHasilTaniJoin()
+        {
+
+            List<HasilTaniJoin> hasilTaniJoinList = new List<HasilTaniJoin>();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM hasil_tani INNER JOIN jenis_tani ON jenis_tani.id_jenistani = hasil_tani.id_jenistani INNER JOIN lokasi ON lokasi.id_lokasi = hasil_tani.id_lokasi", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        HasilTaniJoin hasilTani = new HasilTaniJoin();
+                        JenisTani jenisTani = new JenisTani();
+                        Lokasi lokasi = new Lokasi();
+
+                        hasilTani.IdHasilTani = reader.GetInt32("id_hasil");
+                        hasilTani.Jumlah = reader.GetInt32("jumlah");
+                        jenisTani.IdJenisTani = reader.GetInt32("id_jenistani");
+                        jenisTani.NamaJenisTani = reader.GetString("nama_jenistani");
+                        lokasi.IdLokasi = reader.GetInt32("id_lokasi");
+                        lokasi.Kecamatan = reader.GetString("kecamatan");
+                        lokasi.Kabupaten = reader.GetString("kabupaten");
+                        lokasi.Provinsi = reader.GetString("provinsi");
+                        lokasi.KodePos = reader.GetInt32("kode_pos");
+                        lokasi.Latitude = reader.GetDecimal("latitude");
+                        lokasi.Longitude = reader.GetDecimal("longtitude");
+
+                        hasilTani.jenisTani = jenisTani;
+                        hasilTani.lokasi = lokasi;
+
+                        hasilTaniJoinList.Add(hasilTani);
+                    }
+                }
+
+            }
+            return hasilTaniJoinList;
+        }
+
+        public HasilTaniJoin FindHasilTaniJoin(int idHasilTani)
+        {
+            HasilTaniJoin hasilTaniJoin = new HasilTaniJoin();
+            JenisTani jenisTani = new JenisTani();
+            Lokasi lokasi = new Lokasi();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM hasil_tani INNER JOIN jenis_tani ON jenis_tani.id_jenistani = hasil_tani.id_jenistani INNER JOIN lokasi ON lokasi.id_lokasi = hasil_tani.id_lokasi WHERE id_hasil = '" + idHasilTani + "'", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        hasilTaniJoin.IdHasilTani = reader.GetInt32("id_hasil");
+                        hasilTaniJoin.Jumlah = reader.GetInt32("jumlah");
+                        jenisTani.IdJenisTani = reader.GetInt32("id_jenistani");
+                        jenisTani.NamaJenisTani = reader.GetString("nama_jenistani");
+                        lokasi.IdLokasi = reader.GetInt32("id_lokasi");
+                        lokasi.Kecamatan = reader.GetString("kecamatan");
+                        lokasi.Kabupaten = reader.GetString("kabupaten");
+                        lokasi.Provinsi = reader.GetString("provinsi");
+                        lokasi.KodePos = reader.GetInt32("kode_pos");
+                        lokasi.Latitude = reader.GetDecimal("latitude");
+                        lokasi.Longitude = reader.GetDecimal("longtitude");
+
+                        hasilTaniJoin.jenisTani = jenisTani;
+                        hasilTaniJoin.lokasi = lokasi;
+                    }
+                }
+
+            }
+            return hasilTaniJoin;
+        }
+
+        public void DeleteHasilTani(int id)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM hasil_tani WHERE id_hasil = '" + id + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public List<Lokasi> GetAllLokasiTani()
         {

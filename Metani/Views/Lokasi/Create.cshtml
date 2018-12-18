@@ -38,17 +38,32 @@
     <div class="form-group">
         <label class="control-label col-md-2">Latitude : </label>
         <div class="col-md-10">
-            <input type="text" placeholder="Masukkan Latitude" id="latitude" name="latitude">
+            <input type="text" placeholder="Masukkan Latitude" id="latitude" name="latitude" value="-7.449771799999999" readonly>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-2">Longitude : </label>
         <div class="col-md-10">
-            <input type="text" placeholder="Masukkan longitude" id="longitude" name="longitude">
+            <input type="text" placeholder="Masukkan longitude" id="longitude" name="longitude" value="112.70154950000006" readonly>
         </div>
     </div>
 
-    @*Genre and Price removed for brevity.*@
+    <input id="pac-input" class="controls" type="text"
+           placeholder="Enter a location">
+    <div id="type-selector" class="controls">
+        <input type="radio" name="type" id="changetype-all" checked="checked">
+        <label for="changetype-all">All</label>
+        <input type="radio" name="type" id="changetype-establishment">
+        <label for="changetype-establishment">Establishments</label>
+        <input type="radio" name="type" id="changetype-address">
+        <label for="changetype-address">Addresses</label>
+        <input type="radio" name="type" id="changetype-geocode">
+        <label for="changetype-geocode">Geocodes</label>
+    </div>
+
+
+    <div id="map" style="width:800px; height:500px;"></div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />
@@ -62,3 +77,105 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    var map;
+    function initMap() {
+        var lat = parseFloat(document.getElementById('latitude').value);
+        var lng = parseFloat(document.getElementById('longitude').value);
+        if (!isNaN(lat) && !isNaN(lng)) {
+            var myLatLng = { lat: lat, lng: lng };
+        } else {
+            var myLatLng = { lat: -7.4472403, lng: 112.6893118 };
+            document.getElementById('latitude').value = myLatLng.lat;
+            document.getElementById('longitude').value = myLatLng.lng;
+        }
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+            draggable: true,
+            position: myLatLng,
+            map: map,
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+
+        google.maps.event.addListener(map, 'click', function (event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+            marker.setPosition(event.latLng);
+        });
+
+        // Auto complete
+        var input = document.getElementById('pac-input');
+
+        var types = document.getElementById('type-selector');
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+
+        var infowindow = new google.maps.InfoWindow();
+
+        autocomplete.addListener('place_changed', function () {
+            infowindow.close();
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert('No details available for input: place.name');
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);  // Why 17? Because it looks good.
+            }
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+            document.getElementById('latitude').value = place.geometry.location.lat();
+            document.getElementById('longitude').value = place.geometry.location.lng();
+
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+            var radioButton = document.getElementById(id);
+            radioButton.addEventListener('click', function () {
+                autocomplete.setTypes(types);
+            });
+        }
+
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
+        async defer></script>

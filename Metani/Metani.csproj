@@ -163,6 +163,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HasilTani.cs" />
+    <Compile Include="Models\HasilTaniJoin.cs" />
     <Compile Include="Models\JenisTanah.cs" />
     <Compile Include="Models\JenisTani.cs" />
     <Compile Include="Models\Lokasi.cs" />
@@ -229,6 +230,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\HasilTani\Create.cshtml" />
     <Content Include="Views\HasilTani\Edit.cshtml" />
+    <Content Include="Views\HasilTani\Details.cshtml" />
+    <Content Include="Views\HasilTani\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

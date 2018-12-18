@@ -1,14 +1,14 @@
-﻿@model Metani.Models.Lokasi
+﻿@model Metani.Models.HasilTaniJoin
 
 @{
-    ViewBag.Title = "Lokasi Tani";
+    ViewBag.Title = "Hasil Tani Detail";
 }
 <h2>@ViewBag.Title.</h2>
 
 <table class="table">
     <tr>
         <th>
-            ID Lokasi Tani
+            ID
         </th>
         <th>
             Kecamatan
@@ -17,44 +17,32 @@
             Kabupaten
         </th>
         <th>
-            Provinsi
+            Jenis Tani
         </th>
         <th>
-            Kodepos
-        </th>
-        <th>
-            Latitude
-        </th>
-        <th>
-            Longitude
+            Jumlah
         </th>
         <th></th>
     </tr>
     <tr>
         <td>
-            @Model.IdLokasi
+            @Model.IdHasilTani
         </td>
         <td>
-            @Model.Kecamatan
+            @Model.lokasi.Kecamatan
         </td>
         <td>
-            @Model.Kabupaten
+            @Model.lokasi.Kabupaten
         </td>
         <td>
-            @Model.Provinsi
+            @Model.jenisTani.NamaJenisTani
         </td>
         <td>
-            @Model.KodePos
+            @Model.Jumlah
         </td>
         <td>
-            @Model.Latitude
-        </td>
-        <td>
-            @Model.Longitude
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdLokasi }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.IdLokasi })
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdHasilTani }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.IdHasilTani })
         </td>
     </tr>
 
@@ -65,13 +53,13 @@
 <script>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: @Model.Latitude, lng: @Model.Longitude },
+            center: { lat: @Model.lokasi.Latitude, lng: @Model.lokasi.Longitude },
             zoom: 15
         });
 
         var marker = new google.maps.Marker({
             draggable: false,
-            position: { lat: @Model.Latitude, lng: @Model.Longitude },
+            position: { lat: @Model.lokasi.Latitude, lng: @Model.lokasi.Longitude },
             map: map,
         });
     }

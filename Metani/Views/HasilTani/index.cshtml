@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Metani.Models.HasilTani>
+﻿@model IEnumerable<Metani.Models.HasilTaniJoin>
 
 @{
     ViewBag.Title = "Hasil Tani";
@@ -14,13 +14,13 @@
             ID Hasil Tani
         </th>
         <th>
-            ID Jenis Tani
+            Jenis
         </th>
         <th>
             Jumlah
         </th>
         <th>
-            Id Lokasi
+            Kecamatan
         </th>
         
         <th></th>
@@ -33,13 +33,13 @@
             @item.IdHasilTani
         </td>
         <td>
-            @item.IdJenisTani
+            @item.jenisTani.NamaJenisTani
         </td>
         <td>
             @item.Jumlah
         </td>
         <td>
-            @item.IdLokasi
+            @item.lokasi.Kecamatan
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.IdHasilTani }) |
