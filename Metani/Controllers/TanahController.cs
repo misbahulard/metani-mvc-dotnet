@@ -15,7 +15,7 @@ namespace Metani.Controllers
             if ((bool)Session["Login"])
             {
                 MetaniContext context = new MetaniContext();
-                return View(context.GetAllTanahTani());
+                return View(context.GetAllTanahJoin());
             }
 
             return RedirectToAction("Login", "Admin");
@@ -26,7 +26,9 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();  
+                MetaniContext context = new MetaniContext();
+                TanahJoin tanahJoin = context.FindTanahJoin(id);
+                return View(tanahJoin);
             }
 
             return RedirectToAction("Login", "Admin");
@@ -37,7 +39,14 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();  
+                MetaniContext context = new MetaniContext();
+                List<JenisTanah> jenisTanah = context.GetAllJenisTanah();
+                List<Lokasi> lokasi = context.GetAllLokasiTani();
+
+                Tanah tanah = new Tanah();
+
+                TanahLokasi tanahLokasi = new TanahLokasi { jenisTanah = jenisTanah.ToArray(), lokasi = lokasi.ToArray(), tanah = tanah };
+                return View(tanahLokasi);
             }
 
             return RedirectToAction("Login", "Admin");
@@ -45,13 +54,14 @@ namespace Metani.Controllers
 
         // POST: Tanah/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(int idJenisTanah, int luasTanah, int suhu, int idLokasi)
         {
             if ((bool)Session["Login"])
             {
                 try
                 {
-                    // TODO: Add insert logic here
+                    MetaniContext context = new MetaniContext();
+                    context.PostTanah(idJenisTanah, luasTanah, suhu, idLokasi);
 
                     return RedirectToAction("Index");
                 }
@@ -69,7 +79,14 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();
+                MetaniContext context = new MetaniContext();
+                List<JenisTanah> jenisTanah = context.GetAllJenisTanah();
+                List<Lokasi> lokasi = context.GetAllLokasiTani();
+                Tanah tanah = context.FindTanah(id);
+
+                TanahLokasi tanahLokasi = new TanahLokasi { jenisTanah = jenisTanah.ToArray(), lokasi = lokasi.ToArray(), tanah = tanah };
+
+                return View(tanahLokasi);
             }
 
             return RedirectToAction("Login", "Admin");
@@ -77,13 +94,14 @@ namespace Metani.Controllers
 
         // POST: Tanah/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int idTanah, int idJenisTanah, int luasTanah, int suhu, int idLokasi)
         {
             if ((bool)Session["Login"])
             {
                 try
                 {
-                    // TODO: Add update logic here
+                    MetaniContext context = new MetaniContext();
+                    context.EditTanah(idTanah, idJenisTanah, luasTanah, suhu, idLokasi);
 
                     return RedirectToAction("Index");
                 }
@@ -101,7 +119,8 @@ namespace Metani.Controllers
         {
             if ((bool)Session["Login"])
             {
-                return View();
+                MetaniContext context = new MetaniContext();
+                return View(context.FindTanahJoin(id));
             }
 
             return RedirectToAction("Login", "Admin");
@@ -115,8 +134,8 @@ namespace Metani.Controllers
             {
                 try
                 {
-                    // TODO: Add delete logic here
-
+                    MetaniContext context = new MetaniContext();
+                    context.DeleteTanah(id);
                     return RedirectToAction("Index");
                 }
                 catch

@@ -1,0 +1,76 @@
+﻿@model Metani.Models.TanahJoin
+
+@{
+    ViewBag.Title = "Tanah Detail";
+}
+<h2>@ViewBag.Title.</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Kecamatan
+        </th>
+        <th>
+            Kabupaten
+        </th>
+        <th>
+            Jenis Tanah
+        </th>
+        <th>
+            Luas Tanah
+        </th>
+        <th>
+            Suhu
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Model.IdTanah
+        </td>
+        <td>
+            @Model.Lokasi.Kecamatan
+        </td>
+        <td>
+            @Model.Lokasi.Kabupaten
+        </td>
+        <td>
+            @Model.JenisTanah.NamaJenisTanah
+        </td>
+        <td>
+            @Model.LuasTanah
+        </td>
+        <td>
+            @Model.Suhu
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdTanah }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.IdTanah })
+        </td>
+    </tr>
+
+</table>
+
+<div id="map" style="width:800px; height:500px;"></div>
+
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: @Model.Lokasi.Latitude, lng: @Model.Lokasi.Longitude },
+            zoom: 15
+        });
+
+        var marker = new google.maps.Marker({
+            draggable: false,
+            position: { lat: @Model.Lokasi.Latitude, lng: @Model.Lokasi.Longitude },
+            map: map,
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
+        async defer></script>
+

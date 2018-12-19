@@ -169,6 +169,8 @@
     <Compile Include="Models\Lokasi.cs" />
     <Compile Include="Models\MetaniContext.cs" />
     <Compile Include="Models\Tanah.cs" />
+    <Compile Include="Models\TanahJoin.cs" />
+    <Compile Include="Models\TanahLokasi.cs" />
     <Compile Include="Models\TaniLokasi.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,6 +234,10 @@
     <Content Include="Views\HasilTani\Edit.cshtml" />
     <Content Include="Views\HasilTani\Details.cshtml" />
     <Content Include="Views\HasilTani\Delete.cshtml" />
+    <Content Include="Views\Tanah\Create.cshtml" />
+    <Content Include="Views\Tanah\Delete.cshtml" />
+    <Content Include="Views\Tanah\Details.cshtml" />
+    <Content Include="Views\Tanah\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

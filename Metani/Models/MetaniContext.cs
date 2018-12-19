@@ -478,6 +478,143 @@ namespace Metani.Models
             return list;
         }
 
+        public List<TanahJoin> GetAllTanahJoin()
+        {
+
+            List<TanahJoin> tanahJoinList = new List<TanahJoin>();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM tanah INNER JOIN jenis_tanah ON jenis_tanah.id_jenistanah = tanah.id_jenistanah INNER JOIN lokasi ON lokasi.id_lokasi = tanah.id_lokasi", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TanahJoin tanahJoin = new TanahJoin();
+                        JenisTanah jenisTanah = new JenisTanah();
+                        Lokasi lokasi = new Lokasi();
+
+                        tanahJoin.IdTanah = reader.GetInt32("id_tanah");
+                        tanahJoin.Suhu = reader.GetInt32("suhu");
+                        tanahJoin.LuasTanah = reader.GetInt32("luas_tanah");
+                        jenisTanah.IdJenisTanah = reader.GetInt32("id_jenistanah");
+                        jenisTanah.NamaJenisTanah = reader.GetString("nama_jenistanah");
+                        lokasi.IdLokasi = reader.GetInt32("id_lokasi");
+                        lokasi.Kecamatan = reader.GetString("kecamatan");
+                        lokasi.Kabupaten = reader.GetString("kabupaten");
+                        lokasi.Provinsi = reader.GetString("provinsi");
+                        lokasi.KodePos = reader.GetInt32("kode_pos");
+                        lokasi.Latitude = reader.GetDecimal("latitude");
+                        lokasi.Longitude = reader.GetDecimal("longtitude");
+
+                        tanahJoin.JenisTanah = jenisTanah;
+                        tanahJoin.Lokasi = lokasi;
+
+                        tanahJoinList.Add(tanahJoin);
+                    }
+                }
+
+            }
+            return tanahJoinList;
+        }
+
+        public void PostTanah(int idJenisTanah, int luasTanah, int suhu, int idLokasi)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO tanah(id_jenistanah, luas_tanah, suhu, id_lokasi) values('" + idJenisTanah + "', '" + luasTanah + "' , '" + suhu + "', '" + idLokasi + "')", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public Tanah FindTanah(int idTanah)
+        {
+            Tanah tanah = new Tanah();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM tanah WHERE id_tanah = ('" + idTanah + "')", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        tanah.IdTanah = reader.GetInt32("id_tanah");
+                        tanah.IdJenisTanah = reader.GetInt32("id_jenistanah");
+                        tanah.LuasTanah = reader.GetInt32("luas_tanah");
+                        tanah.Suhu = reader.GetInt32("suhu");
+                        tanah.IdLokasi = reader.GetInt32("id_lokasi");
+
+                    }
+                }
+
+            }
+            return tanah;
+        }
+
+        public TanahJoin FindTanahJoin(int idTanah)
+        {
+            TanahJoin tanahJoin = new TanahJoin();
+            JenisTanah jenisTanah = new JenisTanah();
+            Lokasi lokasi = new Lokasi();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM tanah INNER JOIN jenis_tanah ON jenis_tanah.id_jenistanah = tanah.id_jenistanah INNER JOIN lokasi ON lokasi.id_lokasi = tanah.id_lokasi WHERE id_tanah = '" + idTanah + "'", conn);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        tanahJoin.IdTanah = reader.GetInt32("id_tanah");
+                        tanahJoin.Suhu = reader.GetInt32("suhu");
+                        tanahJoin.LuasTanah = reader.GetInt32("luas_tanah");
+                        jenisTanah.IdJenisTanah = reader.GetInt32("id_jenistanah");
+                        jenisTanah.NamaJenisTanah = reader.GetString("nama_jenistanah");
+                        lokasi.IdLokasi = reader.GetInt32("id_lokasi");
+                        lokasi.Kecamatan = reader.GetString("kecamatan");
+                        lokasi.Kabupaten = reader.GetString("kabupaten");
+                        lokasi.Provinsi = reader.GetString("provinsi");
+                        lokasi.KodePos = reader.GetInt32("kode_pos");
+                        lokasi.Latitude = reader.GetDecimal("latitude");
+                        lokasi.Longitude = reader.GetDecimal("longtitude");
+
+                        tanahJoin.JenisTanah = jenisTanah;
+                        tanahJoin.Lokasi = lokasi;
+                    }
+                }
+
+            }
+            return tanahJoin;
+        }
+
+        public void EditTanah(int idTanah, int idJenisTanah, int luasTanah, int suhu, int idLokasi)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("UPDATE tanah SET id_jenistanah = '" + idJenisTanah +
+                    "', luas_tanah = '" + luasTanah +
+                    "', suhu = '" + suhu +
+                    "', id_lokasi = '" + idLokasi +
+                    "' WHERE id_tanah = '" + idTanah + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+        public void DeleteTanah(int id)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM tanah WHERE id_tanah = '" + id + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input

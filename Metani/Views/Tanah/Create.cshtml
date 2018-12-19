@@ -1,0 +1,69 @@
+﻿@model Metani.Models.TanahLokasi
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>HasilTani</h4>
+    <hr />
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nama Jenis Tanah : </label>
+        <div class="col-md-10">
+            <select class="form-control" id="idJenisTanah" name="idJenisTanah">
+                @foreach (var item in Model.jenisTanah)
+                {
+                    <option value="@item.IdJenisTanah">
+                        @item.NamaJenisTanah
+                    </option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Luas Tanah : </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Masukkan Luas Tanah" id="luasTanah" name="luasTanah">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Suhu : </label>
+        <div class="col-md-10">
+            <input type="text" placeholder="Masukkan Suhu" id="suhu" name="suhu">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nama Kecamatan : </label>
+        <div class="col-md-10">
+            <select class="form-control" id="idLokasi" name="idLokasi">
+                @foreach (var item in Model.lokasi)
+                {
+                    <option value="@item.IdLokasi">
+                        @item.Kecamatan
+                    </option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Metani.Models.Tanah>
+﻿@model IEnumerable<Metani.Models.TanahJoin>
 
 @{
     ViewBag.Title = "Tanah";
@@ -35,10 +35,10 @@
                 @item.IdTanah
             </td>
             <td>
-                @item.IdLokasi
+                @item.Lokasi.Kecamatan
             </td>
             <td>
-                @item.IdJenisTanah
+                @item.JenisTanah.NamaJenisTanah
             </td>
             <td>
                 @item.LuasTanah
