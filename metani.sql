@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 15 Des 2018 pada 11.40
+-- Generation Time: 20 Des 2018 pada 16.51
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -35,6 +35,13 @@ CREATE TABLE `hasil_tani` (
   `id_lokasi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `hasil_tani`
+--
+
+INSERT INTO `hasil_tani` (`id_hasil`, `id_jenistani`, `jumlah`, `id_lokasi`) VALUES
+(3, 2, 105, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +52,13 @@ CREATE TABLE `jenis_tanah` (
   `id_jenistanah` int(11) NOT NULL,
   `nama_jenistanah` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `jenis_tanah`
+--
+
+INSERT INTO `jenis_tanah` (`id_jenistanah`, `nama_jenistanah`) VALUES
+(1, 'Gambut');
 
 -- --------------------------------------------------------
 
@@ -81,6 +95,15 @@ CREATE TABLE `lokasi` (
   `longtitude` decimal(10,6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `lokasi`
+--
+
+INSERT INTO `lokasi` (`id_lokasi`, `kecamatan`, `kabupaten`, `provinsi`, `kode_pos`, `latitude`, `longtitude`) VALUES
+(2, 'Sidoarjo', 'Sidoarjo', 'Jawa Timur', 61262, '-7.456452', '112.720576'),
+(3, 'Tambak Boyo', 'Tuban', 'Jawa Timur', 62242, '-6.894910', '112.041675'),
+(4, 'Taman', 'Sidoarjo', 'Jawa Timur', 61262, '-7.366297', '112.673499');
+
 -- --------------------------------------------------------
 
 --
@@ -94,6 +117,13 @@ CREATE TABLE `tanah` (
   `luas_tanah` int(11) NOT NULL,
   `suhu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tanah`
+--
+
+INSERT INTO `tanah` (`id_tanah`, `id_lokasi`, `id_jenistanah`, `luas_tanah`, `suhu`) VALUES
+(2, 4, 1, 23123, 33);
 
 -- --------------------------------------------------------
 
@@ -171,12 +201,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `hasil_tani`
 --
 ALTER TABLE `hasil_tani`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `jenis_tanah`
 --
 ALTER TABLE `jenis_tanah`
-  MODIFY `id_jenistanah` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jenistanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `jenis_tani`
 --
@@ -186,12 +216,12 @@ ALTER TABLE `jenis_tani`
 -- AUTO_INCREMENT for table `lokasi`
 --
 ALTER TABLE `lokasi`
-  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tanah`
 --
 ALTER TABLE `tanah`
-  MODIFY `id_tanah` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tanah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --

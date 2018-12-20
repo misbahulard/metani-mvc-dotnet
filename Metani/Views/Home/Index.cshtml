@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Metani.Models.MapTani
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -29,3 +31,62 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<div id="map" style="width:800px; height:500px;"></div>
+
+<script>
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -7.449771799999999, lng: 112.70154950000006 },
+            zoom: 10
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        @for (int i = 0; i < Model.HasilTani.Count; i++)
+        {
+        <text>
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(@Model.HasilTani[i].latitude, @Model.HasilTani[i].longitude),
+            map: map,
+            icon: 'Content/markers/green_MarkerT.png'
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(" @Model.HasilTani[i].nama - @Model.HasilTani[i].desc");
+                infowindow.open(map, marker);
+            }
+        })(marker, @i));
+
+        </text>
+        }
+
+
+        @for (int i = 0; i < Model.Tanah.Count; i++)
+        {
+        <text>
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(@Model.Tanah[i].latitude, @Model.Tanah[i].longitude),
+            map: map,
+            icon: 'Content/markers/brown_MarkerT.png'
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(" @Model.Tanah[i].nama - @Model.Tanah[i].desc");
+                infowindow.open(map, marker);
+            }
+        })(marker, @i));
+
+        </text>
+        }
+        
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
+        async defer></script>

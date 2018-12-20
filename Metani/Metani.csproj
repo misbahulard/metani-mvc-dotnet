@@ -167,6 +167,8 @@
     <Compile Include="Models\JenisTanah.cs" />
     <Compile Include="Models\JenisTani.cs" />
     <Compile Include="Models\Lokasi.cs" />
+    <Compile Include="Models\MapList.cs" />
+    <Compile Include="Models\MapTani.cs" />
     <Compile Include="Models\MetaniContext.cs" />
     <Compile Include="Models\Tanah.cs" />
     <Compile Include="Models\TanahJoin.cs" />
