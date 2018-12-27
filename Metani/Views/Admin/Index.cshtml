@@ -1,7 +1,95 @@
-﻿<ul>
-    <li>@Html.ActionLink("Jenis Tani", "Index", "JenisTani")</li>
-    <li>@Html.ActionLink("Jenis Tanah", "Index", "JenisTanah")</li>
-    <li>@Html.ActionLink("Hasil Tani", "Index", "HasilTani")</li>
-    <li>@Html.ActionLink("Tanah", "Index", "Tanah")</li>
-    <li>@Html.ActionLink("Lokasi", "Index", "Lokasi")</li>
-</ul>
+﻿@model Metani.Models.MapTani
+
+@{
+    ViewBag.Title = "Welcome to MeTani";
+}
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="jumbotron" style="height:450px; background-image: url('../../Content/stisla/img/farm-bg.jpg'); background-repeat: no-repeat; background-size: cover">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" style="padding: 25px">
+                    <h2>Apa itu MeTani</h2>
+                    <p>METANI adalah sebuah aplikasi inventarisasi hasil produksi pertanian dan lahan pertanian secara tahunan berbasis web untuk mengetahui indeks hasil pertanian di suatu daerah.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card" style="padding: 25px">
+                    <h2>Kegunaan MeTani</h2>
+                    <p>METANI dapat digunakan oleh masyarakat yang bekerja di bidang agrikultur untuk memantau pertaniannya mulai dari tahap produksi hingga hasil tani.</p>
+                </div>
+            </div>
+        </div>
+        <h2 class="section-title">Map Pemetaan</h2>
+        <div class="row">
+            <div class="col-12">
+                <div class="card" style="padding:25px">
+                    <div id="map" style="width:auto; height:500px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -7.449771799999999, lng: 112.70154950000006 },
+            zoom: 10
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        @for (int i = 0; i < Model.HasilTani.Count; i++)
+        {
+        <text>
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(@Model.HasilTani[i].latitude, @Model.HasilTani[i].longitude),
+            map: map,
+            icon: 'Content/markers/green_MarkerT.png'
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(" @Model.HasilTani[i].nama - @Model.HasilTani[i].desc");
+                infowindow.open(map, marker);
+            }
+        })(marker, @i));
+
+        </text>
+        }
+
+
+        @for (int i = 0; i < Model.Tanah.Count; i++)
+        {
+        <text>
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(@Model.Tanah[i].latitude, @Model.Tanah[i].longitude),
+            map: map,
+            icon: 'Content/markers/brown_MarkerT.png'
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(" @Model.Tanah[i].nama - @Model.Tanah[i].desc");
+                infowindow.open(map, marker);
+            }
+        })(marker, @i));
+
+        </text>
+        }
+
+    }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
+        async defer></script>

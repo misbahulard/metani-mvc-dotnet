@@ -1,60 +1,72 @@
 ﻿@model Metani.Models.TanahJoin
 
 @{
-    ViewBag.Title = "Tanah Detail";
+    ViewBag.Title = "Details Tanah";
 }
-<h2>@ViewBag.Title.</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            ID
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        <th>
-            Kabupaten
-        </th>
-        <th>
-            Jenis Tanah
-        </th>
-        <th>
-            Luas Tanah
-        </th>
-        <th>
-            Suhu
-        </th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.IdTanah
-        </td>
-        <td>
-            @Model.Lokasi.Kecamatan
-        </td>
-        <td>
-            @Model.Lokasi.Kabupaten
-        </td>
-        <td>
-            @Model.JenisTanah.NamaJenisTanah
-        </td>
-        <td>
-            @Model.LuasTanah
-        </td>
-        <td>
-            @Model.Suhu
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdTanah }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.IdTanah })
-        </td>
-    </tr>
-
-</table>
-
-<div id="map" style="width:800px; height:500px;"></div>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Tanah</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>@Model.IdTanah</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Tanah</th>
+                                        <td>@Model.JenisTanah.NamaJenisTanah</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Luas Tanah</th>
+                                        <td>@Model.LuasTanah</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Suhu</th>
+                                        <td>@Model.Suhu</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kecamatan</th>
+                                        <td>@Model.Lokasi.Kecamatan</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kabupaten</th>
+                                        <td>@Model.Lokasi.Kabupaten</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Action</th>
+                                        <td>
+                                            <a href="~/Tanah/Edit/@Model.IdTanah" class="btn btn-warning">Edit</a>
+                                            <a href="~/Tanah/Delete/@Model.IdTanah" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="section-title">Map Lokasi</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="padding:25px">
+                        <div id="map" style="width:auto; height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 <script>
     function initMap() {
@@ -73,4 +85,3 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
         async defer></script>
-

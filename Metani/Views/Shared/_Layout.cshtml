@@ -3,47 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - MeTani</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="~/Content/stisla/modules/fontawesome/css/all.min.css" />
+
+    @* CSS Libraries *@
+    <link rel="stylesheet" href="~/Content/stisla/modules/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="~/Content/stisla/modules/weather-icon/css/weather-icons.min.css">
+    <link rel="stylesheet" href="~/Content/stisla/modules/weather-icon/css/weather-icons-wind.min.css">
+    <link rel="stylesheet" href="~/Content/stisla/modules/summernote/summernote-bs4.css">
+
+    @* Template CSS *@
+    <link rel="stylesheet" href="~/Content/stisla/css/style.css" />
+    <link rel="stylesheet" href="~/Content/stisla/css/components.css" />
+    
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    @if ((bool)Session["login"] == true)
-                    {
-                        <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "Admin")</li>
-                    }
-                </ul>
-            </div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            @if ((bool)Session["login"] == true)
+            {
+                <div class="navbar-bg"></div>
+                <nav class="navbar navbar-expand-lg main-navbar">
+                    <form class="form-inline mr-auto">
+                        <ul class="navbar-nav mr-3">
+                            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        </ul>
+                    </form>
+                    <ul class="navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                <img alt="image" src="~/Content/stisla/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                                <div class="d-sm-none d-lg-inline-block">Hi, Admin</div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="~/Admin/Logout" class="dropdown-item has-icon text-danger">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main-sidebar sidebar-style-2">
+                    <aside id="sidebar-wrapper">
+                        <div class="sidebar-brand">
+                            <a href="~/Admin/Index">Metani</a>
+                        </div>
+                        <div class="sidebar-brand sidebar-brand-sm">
+                            <a href="~/Admin/Index">Mtn</a>
+                        </div>
+                        <ul class="sidebar-menu">
+                            <li class="menu-header">Dashboard</li>
+                            <li><a class="nav-link" href="~/Admin/Index"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                            <li class="menu-header">Menu</li>
+                            <li><a class="nav-link" href="~/JenisTani/Index"><i class="fas fa-angle-double-right"></i> <span>Jenis Tani</span></a></li>
+                            <li><a class="nav-link" href="~/JenisTanah/Index"><i class="fas fa-angle-double-right"></i> <span>Jenis Tanah</span></a></li>
+                            <li><a class="nav-link" href="~/HasilTani/Index"><i class="fas fa-angle-double-right"></i> <span>Hasil Tani</span></a></li>
+                            <li><a class="nav-link" href="~/Tanah/Index"><i class="fas fa-angle-double-right"></i> <span>Tanah</span></a></li>
+                            <li><a class="nav-link" href="~/Lokasi/Index"><i class="fas fa-angle-double-right"></i> <span>Lokasi</span></a></li>
+                        </ul>
+                    </aside>
+                </div>                
+            }
+            @RenderBody()
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                </div>
+                <div class="footer-right">
+                    v2.1.0
+                </div>
+            </footer>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/Content/stisla/js/stisla.js"></script>
+    <script src="~/Content/stisla/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/stisla/js/scripts.js"></script>
 </body>
 </html>

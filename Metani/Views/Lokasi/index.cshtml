@@ -3,67 +3,76 @@
 @{
     ViewBag.Title = "Lokasi";
 }
-<h2>@ViewBag.Title.</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            ID Lokasi
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        <th>
-            Kabupaten
-        </th>
-        <th>
-            Provinsi
-        </th>
-        <th>
-            Kode Pos
-        </th>
-        <th>
-            Latitude
-        </th>
-        <th>
-            Longitude
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @item.IdLokasi
-        </td>
-        <td>
-            @item.Kecamatan
-        </td>
-        <td>
-            @item.Kabupaten
-        </td>
-        <td>
-            @item.Provinsi
-        </td>
-        <td>
-            @item.KodePos
-        </td>
-        <td>
-            @item.Latitude
-        </td>
-        <td>
-            @item.Longitude
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IdLokasi }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdLokasi }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdLokasi })
-        </td>
-    </tr>
-    }
-
-</table>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Lokasi</h4>
+                            <div class="card-header-action">
+                                <form>
+                                    <div class="input-group">
+                                        <a href="~/Lokasi/Create" class="btn btn-primary">Create New</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kecamatan</th>
+                                        <th>Kabupaten</th>
+                                        <th>Provinsi</th>
+                                        <th>Kode Pos</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.IdLokasi
+                                            </td>
+                                            <td>
+                                                @item.Kecamatan
+                                            </td>
+                                            <td>
+                                                @item.Kabupaten
+                                            </td>
+                                            <td>
+                                                @item.Provinsi
+                                            </td>
+                                            <td>
+                                                @item.KodePos
+                                            </td>
+                                            <td>
+                                                @item.Latitude
+                                            </td>
+                                            <td>
+                                                @item.Longitude
+                                            </td>
+                                            <td>
+                                                <a href="~/Lokasi/Edit/@item.IdLokasi" class="btn btn-warning">Edit</a>
+                                                <a href="~/Lokasi/Details/@item.IdLokasi" class="btn btn-info">Details</a>
+                                                <a href="~/Lokasi/Delete/@item.IdLokasi" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

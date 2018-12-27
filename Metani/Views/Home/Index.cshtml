@@ -1,38 +1,59 @@
 ﻿@model Metani.Models.MapTani
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welcome to MeTani";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="navbar-bg"></div>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+        </ul>
+    </form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <div class="d-sm-none d-lg-inline-block">Login to MeTani</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="~/Admin/Login" class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Login
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div class="main-content" style="padding-left: 100px; padding-right: 100px">
+    <section class="section">
+        <div class="section-header" style="margin-left: -100px; margin-right: -100px">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="jumbotron" style="height:450px; background-image: url('../../Content/stisla/img/farm-bg.jpg'); background-repeat: no-repeat; background-size: cover">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" style="padding: 25px">
+                    <h2>Apa itu MeTani</h2>
+                    <p>METANI adalah sebuah aplikasi inventarisasi hasil produksi pertanian dan lahan pertanian secara tahunan berbasis web untuk mengetahui indeks hasil pertanian di suatu daerah.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card" style="padding: 25px">
+                    <h2>Kegunaan MeTani</h2>
+                    <p>METANI dapat digunakan oleh masyarakat yang bekerja di bidang agrikultur untuk memantau pertaniannya mulai dari tahap produksi hingga hasil tani.</p>
+                </div>
+            </div>
+        </div>
+        <h2 class="section-title">Map Pemetaan</h2>
+        <div class="row">
+            <div class="col-12">
+                <div class="card" style="padding:25px">
+                    <div id="map" style="width:auto; height:500px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
-
-<div id="map" style="width:800px; height:500px;"></div>
 
 <script>
 
@@ -84,8 +105,9 @@
 
         </text>
         }
-        
+
     }
+
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"

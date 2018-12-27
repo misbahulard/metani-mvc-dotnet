@@ -3,50 +3,64 @@
 @{
     ViewBag.Title = "Hasil Tani";
 }
-<h2>@ViewBag.Title.</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            ID Hasil Tani
-        </th>
-        <th>
-            Jenis
-        </th>
-        <th>
-            Jumlah
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @item.IdHasilTani
-        </td>
-        <td>
-            @item.jenisTani.NamaJenisTani
-        </td>
-        <td>
-            @item.Jumlah
-        </td>
-        <td>
-            @item.lokasi.Kecamatan
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IdHasilTani }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdHasilTani }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdHasilTani })
-        </td>
-    </tr>
-    }
-
-</table>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Hasil Tani</h4>
+                            <div class="card-header-action">
+                                <form>
+                                    <div class="input-group">
+                                        <a href="~/HasilTani/Create" class="btn btn-primary">Create New</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Jenis Tani</th>
+                                        <th>Jumlah</th>
+                                        <th>Kecamatan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.IdHasilTani
+                                            </td>
+                                            <td>
+                                                @item.jenisTani.NamaJenisTani
+                                            </td>
+                                            <td>
+                                                @item.Jumlah
+                                            </td>
+                                            <td>
+                                                @item.lokasi.Kecamatan
+                                            </td>
+                                            <td>
+                                                <a href="~/HasilTani/Edit/@item.IdHasilTani" class="btn btn-warning">Edit</a>
+                                                <a href="~/HasilTani/Details/@item.IdHasilTani" class="btn btn-info">Details</a>
+                                                <a href="~/HasilTani/Delete/@item.IdHasilTani" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,69 +1,86 @@
 ﻿@model Metani.Models.TanahLokasi
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-
+@{
+    ViewBag.Title = "Create Tanah";
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>HasilTani</h4>
-    <hr />
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Nama Jenis Tanah : </label>
-        <div class="col-md-10">
-            <select class="form-control" id="idJenisTanah" name="idJenisTanah">
-                @foreach (var item in Model.jenisTanah)
-                {
-                    <option value="@item.IdJenisTanah">
-                        @item.NamaJenisTanah
-                    </option>
-                }
-
-            </select>
-        </div>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data Tanah</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Tanah</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="selectric-wrapper selectric-form-control selectric-selectric">
+                                            <div class="selectric-hide-select">
+                                                <select class="form-control selectric" id="idJenisTanah" name="idJenisTanah" tabindex="-1">
+                                                    @foreach (var item in Model.jenisTanah)
+                                                    {
+                                                        <option value="@item.IdJenisTanah">
+                                                            @item.NamaJenisTanah
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Luas Tanah</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Luas Tanah" id="luasTanah" name="luasTanah">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Suhu</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Suhu" id="suhu" name="suhu">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kecamatan</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="selectric-wrapper selectric-form-control selectric-selectric">
+                                            <div class="selectric-hide-select">
+                                                <select class="form-control selectric" id="idLokasi" name="idLokasi" tabindex="-1">
+                                                    @foreach (var item in Model.lokasi)
+                                                    {
+                                                        <option value="@item.IdLokasi">
+                                                            @item.Kecamatan
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                        <a class="btn btn-info" href="~/Tanah/Index">Back to List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Luas Tanah : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan Luas Tanah" id="luasTanah" name="luasTanah">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Suhu : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan Suhu" id="suhu" name="suhu">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Nama Kecamatan : </label>
-        <div class="col-md-10">
-            <select class="form-control" id="idLokasi" name="idLokasi">
-                @foreach (var item in Model.lokasi)
-                {
-                    <option value="@item.IdLokasi">
-                        @item.Kecamatan
-                    </option>
-                }
-
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")

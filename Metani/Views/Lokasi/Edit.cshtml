@@ -1,80 +1,100 @@
 ﻿@model Metani.Models.Lokasi
 
 @{
-    ViewBag.Title = "Update";
+    ViewBag.Title = "Edit Lokasi";
 }
-<h2>Edit</h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <h4>Movie</h4>
-    <hr />
-
-    <input type="text" placeholder="id" name="idLokasi" value="@Model.IdLokasi" />
-
-    <div class="form-group">
-        <label class="control-label col-md-2">Kecamatan : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan kecamatan" id="kecamatan" name="kecamatan" value="@Model.Kecamatan">
-        </div>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data Lokasi</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">ID</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="ID Lokasi" name="idLokasi" value="@Model.IdLokasi" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kecamatan</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Kecamatan" id="kecamatan" name="kecamatan" value="@Model.Kecamatan">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kabupaten</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Kabupaten" id="kabupaten" name="kabupaten" value="@Model.Kabupaten">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Provinsi</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Provinsi" id="provinsi" name="provinsi" value="@Model.Provinsi">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kode Pos</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan kode pos" id="kodepos" name="kodepos" value="@Model.KodePos">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Latitude</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Latitude" id="latitude" name="latitude" value="@Model.Latitude">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Longitude</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Longitude" id="longitude" name="longitude" value="@Model.Longitude">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                                        <div id="type-selector" class="controls">
+                                            <input type="radio" name="type" id="changetype-all" checked="checked">
+                                            <label for="changetype-all">All</label>
+                                            <input type="radio" name="type" id="changetype-establishment">
+                                            <label for="changetype-establishment">Establishments</label>
+                                            <input type="radio" name="type" id="changetype-address">
+                                            <label for="changetype-address">Addresses</label>
+                                            <input type="radio" name="type" id="changetype-geocode">
+                                            <label for="changetype-geocode">Geocodes</label>
+                                        </div>
+                                        <div id="map" style="width:auto; height:500px;"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                        <a class="btn btn-info" href="~/Lokasi/Index">Back to List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Kabupaten : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan kabupaten" id="kabupaten" name="kabupaten" value="@Model.Kabupaten">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Provinsi : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan provinsi" id="provinsi" name="provinsi" value="@Model.Provinsi">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Kode Pos : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan kode pos" id="kodepos" name="kodepos" value="@Model.KodePos">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Latitude : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan Latitude" id="latitude" name="latitude" value="@Model.Latitude">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Longitude : </label>
-        <div class="col-md-10">
-            <input type="text" placeholder="Masukkan longitude" id="longitude" name="longitude" value="@Model.Longitude">
-        </div>
-    </div>
-
-    <input id="pac-input" class="controls" type="text"
-           placeholder="Enter a location">
-    <div id="type-selector" class="controls">
-        <input type="radio" name="type" id="changetype-all" checked="checked">
-        <label for="changetype-all">All</label>
-        <input type="radio" name="type" id="changetype-establishment">
-        <label for="changetype-establishment">Establishments</label>
-        <input type="radio" name="type" id="changetype-address">
-        <label for="changetype-address">Addresses</label>
-        <input type="radio" name="type" id="changetype-geocode">
-        <label for="changetype-geocode">Geocodes</label>
-    </div>
-
-    <div id="map" style="width:800px; height:500px;"></div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

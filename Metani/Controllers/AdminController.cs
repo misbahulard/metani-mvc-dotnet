@@ -35,7 +35,7 @@ namespace Metani.Controllers
                 {
                     Session["Login"] = true;
                     Session["Username"] = userDb.Username;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Admin");
                 }
 
                 return View();

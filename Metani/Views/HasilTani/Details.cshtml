@@ -1,54 +1,68 @@
 ﻿@model Metani.Models.HasilTaniJoin
 
 @{
-    ViewBag.Title = "Hasil Tani Detail";
+    ViewBag.Title = "Details Hasil Tani";
 }
-<h2>@ViewBag.Title.</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            ID
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        <th>
-            Kabupaten
-        </th>
-        <th>
-            Jenis Tani
-        </th>
-        <th>
-            Jumlah
-        </th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.IdHasilTani
-        </td>
-        <td>
-            @Model.lokasi.Kecamatan
-        </td>
-        <td>
-            @Model.lokasi.Kabupaten
-        </td>
-        <td>
-            @Model.jenisTani.NamaJenisTani
-        </td>
-        <td>
-            @Model.Jumlah
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdHasilTani }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.IdHasilTani })
-        </td>
-    </tr>
-
-</table>
-
-<div id="map" style="width:800px; height:500px;"></div>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Hasil Tani</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>@Model.IdHasilTani</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Tani</th>
+                                        <td>@Model.jenisTani.NamaJenisTani</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jumlah</th>
+                                        <td>@Model.Jumlah</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kecamatan</th>
+                                        <td>@Model.lokasi.Kecamatan</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kabupaten</th>
+                                        <td>@Model.lokasi.Kabupaten</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Action</th>
+                                        <td>
+                                            <a href="~/HasilTani/Edit/@Model.IdHasilTani" class="btn btn-warning">Edit</a>
+                                            <a href="~/HasilTani/Delete/@Model.IdHasilTani" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="section-title">Map Lokasi</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="padding:25px">
+                        <div id="map" style="width:auto; height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 <script>
     function initMap() {

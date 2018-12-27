@@ -1,66 +1,76 @@
 ﻿@model Metani.Models.Lokasi
 
 @{
-    ViewBag.Title = "Lokasi Tani";
+    ViewBag.Title = "Details Lokasi";
 }
-<h2>@ViewBag.Title.</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            ID Lokasi Tani
-        </th>
-        <th>
-            Kecamatan
-        </th>
-        <th>
-            Kabupaten
-        </th>
-        <th>
-            Provinsi
-        </th>
-        <th>
-            Kodepos
-        </th>
-        <th>
-            Latitude
-        </th>
-        <th>
-            Longitude
-        </th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.IdLokasi
-        </td>
-        <td>
-            @Model.Kecamatan
-        </td>
-        <td>
-            @Model.Kabupaten
-        </td>
-        <td>
-            @Model.Provinsi
-        </td>
-        <td>
-            @Model.KodePos
-        </td>
-        <td>
-            @Model.Latitude
-        </td>
-        <td>
-            @Model.Longitude
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdLokasi }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.IdLokasi })
-        </td>
-    </tr>
-
-</table>
-
-<div id="map" style="width:800px; height:500px;"></div>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Lokasi</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>@Model.IdLokasi</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kecamatan</th>
+                                        <td>@Model.Kecamatan</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kabupaten</th>
+                                        <td>@Model.Kabupaten</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Provinsi</th>
+                                        <td>@Model.Provinsi</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kode Pos</th>
+                                        <td>@Model.KodePos</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Latitude</th>
+                                        <td>@Model.Latitude</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Longitude</th>
+                                        <td>@Model.Longitude</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Action</th>
+                                        <td>
+                                            <a href="~/Lokasi/Edit/@Model.IdLokasi" class="btn btn-warning">Edit</a>
+                                            <a href="~/Lokasi/Delete/@Model.IdLokasi" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="section-title">Map Lokasi</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="padding:25px">
+                        <div id="map" style="width:auto; height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 <script>
     function initMap() {
@@ -79,4 +89,3 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnwy1r4Yg5TSy3YB2Vb4PjydJ5HLIfQ4A&libraries=places&callback=initMap"
         async defer></script>
-

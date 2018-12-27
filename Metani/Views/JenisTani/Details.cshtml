@@ -1,31 +1,45 @@
 ﻿@model Metani.Models.JenisTani
 
 @{
-    ViewBag.Title = "Jenis Tani";
+    ViewBag.Title = "Details Jenis Tani";
 }
-<h2>@ViewBag.Title.</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            ID Jenis Tani
-        </th>
-        <th>
-            Nama
-        </th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.IdJenisTani
-        </td>
-        <td>
-            @Model.NamaJenisTani
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.IdJenisTani }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.IdJenisTani })
-        </td>
-    </tr>
-
-</table>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Jenis Tani</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>@Model.IdJenisTani</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Jenis Tani</th>
+                                        <td>@Model.NamaJenisTani</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Action</th>
+                                        <td>
+                                            <a href="~/JenisTani/Edit/@Model.IdJenisTani" class="btn btn-warning">Edit</a>
+                                            <a href="~/JenisTani/Delete/@Model.IdJenisTani" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

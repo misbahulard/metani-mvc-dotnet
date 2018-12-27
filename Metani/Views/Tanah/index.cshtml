@@ -3,55 +3,68 @@
 @{
     ViewBag.Title = "Tanah";
 }
-<h2>@ViewBag.Title.</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            ID Tanah
-        </th>
-        <th>
-            ID Lokasi
-        </th>
-        <th>
-            ID Jenis Tanah
-        </th>
-        <th>
-            Luas Tanah
-        </th>
-        <th>
-            Suhu
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @item.IdTanah
-            </td>
-            <td>
-                @item.Lokasi.Kecamatan
-            </td>
-            <td>
-                @item.JenisTanah.NamaJenisTanah
-            </td>
-            <td>
-                @item.LuasTanah
-            </td>
-            <td>
-                @item.Suhu
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IdTanah }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IdTanah }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IdTanah })
-            </td>
-        </tr>
-    }
-
-</table>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Data Tanah</h4>
+                            <div class="card-header-action">
+                                <form>
+                                    <div class="input-group">
+                                        <a href="~/Tanah/Create" class="btn btn-primary">Create New</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-md">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Jenis Tanah</th>
+                                        <th>Luas Tanah</th>
+                                        <th>Suhu</th>
+                                        <th>Lokasi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.IdTanah
+                                            </td>
+                                            <td>
+                                                @item.JenisTanah.NamaJenisTanah
+                                            </td>
+                                            <td>
+                                                @item.LuasTanah
+                                            </td>
+                                            <td>
+                                                @item.Suhu
+                                            </td>
+                                            <td>
+                                                @item.Lokasi.Kecamatan
+                                            </td>
+                                            <td>
+                                                <a href="~/Tanah/Edit/@item.IdTanah" class="btn btn-warning">Edit</a>
+                                                <a href="~/Tanah/Details/@item.IdTanah" class="btn btn-info">Details</a>
+                                                <a href="~/Tanah/Delete/@item.IdTanah" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

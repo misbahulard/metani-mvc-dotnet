@@ -1,62 +1,80 @@
 ﻿@model Metani.Models.TaniLokasi
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-
+@{
+    ViewBag.Title = "Create Hasil Tani";
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>HasilTani</h4>
-    <hr />
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Nama Jenis Tani : </label>
-            <div class="col-md-10">
-                <select class="form-control" id="idJenisTani" name="idJenisTani">
-                    @foreach (var item in Model.jenisTani)
-                    {
-                        <option value="@item.IdJenisTani">
-                            @item.NamaJenisTani
-                        </option>
-                    }
-
-                </select>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h2>@ViewBag.Title</h2>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Jumlah : </label>
-            <div class="col-md-10">
-                <input type="text" placeholder="Masukkan jumlah" id="jumlah" name="jumlah">
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Data Hasil Tani</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Tani</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="selectric-wrapper selectric-form-control selectric-selectric">
+                                            <div class="selectric-hide-select">
+                                                <select class="form-control selectric" id="idJenisTani" name="idJenisTani" tabindex="-1">
+                                                    @foreach (var item in Model.jenisTani)
+                                                    {
+                                                        <option value="@item.IdJenisTani">
+                                                            @item.NamaJenisTani
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jumlah</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control" placeholder="Masukkan Jumlah" id="jumlah" name="jumlah">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kecamatan</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="selectric-wrapper selectric-form-control selectric-selectric">
+                                            <div class="selectric-hide-select">
+                                                <select class="form-control selectric" id="idLokasi" name="idLokasi" tabindex="-1">
+                                                    @foreach (var item in Model.lokasi)
+                                                    {
+                                                        <option value="@item.IdLokasi">
+                                                            @item.Kecamatan
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                        <a class="btn btn-info" href="~/HasilTani/Index">Back to List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Nama Kecamatan : </label>
-            <div class="col-md-10">
-                <select class="form-control" id="idLokasi" name="idLokasi">
-                    @foreach (var item in Model.lokasi)
-                    {
-                        <option value="@item.IdLokasi">
-                            @item.Kecamatan
-                        </option>
-                    }
-
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        </section>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
