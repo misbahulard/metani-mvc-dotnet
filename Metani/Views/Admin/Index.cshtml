@@ -53,12 +53,12 @@
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(@Model.HasilTani[i].latitude, @Model.HasilTani[i].longitude),
             map: map,
-            icon: 'Content/markers/green_MarkerT.png'
+            icon: '/Content/markers/green_MarkerT.png'
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                infowindow.setContent(" @Model.HasilTani[i].nama - @Model.HasilTani[i].desc");
+                infowindow.setContent("@Model.HasilTani[i].nama");
                 infowindow.open(map, marker);
             }
         })(marker, @i));
@@ -74,12 +74,12 @@
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(@Model.Tanah[i].latitude, @Model.Tanah[i].longitude),
             map: map,
-            icon: 'Content/markers/brown_MarkerT.png'
+            icon: '/Content/markers/brown_MarkerT.png'
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
-                infowindow.setContent(" @Model.Tanah[i].nama - @Model.Tanah[i].desc");
+                infowindow.setContent("@Model.Tanah[i].nama");
                 infowindow.open(map, marker);
             }
         })(marker, @i));
